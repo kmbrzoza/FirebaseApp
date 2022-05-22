@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.addCallback
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.firebaseapp.R
+import com.example.firebaseapp.extensions.removeErrorOnTextChange
 import com.example.firebaseapp.models.FormMovie
 import com.example.firebaseapp.models.Movie
 import com.example.firebaseapp.viewmodels.FormMovieViewModel
@@ -65,13 +65,7 @@ class FormMovieFragment : Fragment() {
             }
         }
 
-        movieTitle.apply {
-            doOnTextChanged { _, _, _, _ ->
-                if (movieTitleLayout.error != null) {
-                    movieTitleLayout.error = null
-                }
-            }
-        }
+        movieTitle.removeErrorOnTextChange(movieTitleLayout)
 
         view.findViewById<Button>(R.id.button_add_movie).apply {
             setOnClickListener {
@@ -82,7 +76,7 @@ class FormMovieFragment : Fragment() {
                 val description = movieDescription.text.toString()
 
                 if (title.isBlank()) {
-                    movieTitleLayout.error = getString(R.string.field_is_required)
+                    movieTitleLayout.error = getString(R.string.field_is_required_error)
                 } else {
                     val formMovie = FormMovie(title, director, year, viewed, description)
 

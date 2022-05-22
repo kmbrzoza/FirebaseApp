@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.firebaseapp.models.Movie
 import com.example.firebaseapp.models.ViewFilter
+import com.example.firebaseapp.services.FirebaseAuthService
 import com.example.firebaseapp.services.FirebaseService
 
 class MovieListViewModel(application: Application) : AndroidViewModel(application) {
@@ -14,6 +15,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         }
 
     private val firebaseService: FirebaseService = FirebaseService.getInstance()
+    private val firebaseAuthService = FirebaseAuthService.getInstance()
     private var searchText: String = ""
     private var typeFilter: ViewFilter = ViewFilter.ALL
 
@@ -29,5 +31,13 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
             typeFilter = filter
             firebaseService.filterMovies(searchText, typeFilter)
         }
+    }
+
+    fun logoutUser() {
+        firebaseAuthService.logout()
+    }
+
+    fun getUserEmail(): String {
+        return firebaseAuthService.getUserEmail()
     }
 }

@@ -1,12 +1,13 @@
 package com.example.firebaseapp.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebaseapp.R
 import com.example.firebaseapp.adapters.MovieListAdapter
+import com.example.firebaseapp.extensions.showDropdownOnClick
 import com.example.firebaseapp.models.ViewFilter
 import com.example.firebaseapp.viewmodels.MovieListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,13 +40,23 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // If user click back (android button) then return to main fragment
+        // If user click back (android button) then close app
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            view.findNavController()
-                .navigate(R.id.action_movieListFragment_to_mainFragment)
+            requireActivity().finish()
         }
 
         viewModel = MovieListViewModel((requireNotNull(this.activity).application))
+
+        view.findViewById<ImageButton>(R.id.logout).apply {
+            setOnClickListener {
+                viewModel.logoutUser()
+                view.findNavController().navigate(R.id.action_movieListFragment_to_mainFragment)
+            }
+        }
+
+        view.findViewById<TextView>(R.id.movie_list_user_email).apply {
+            this.text = viewModel.getUserEmail()
+        }
 
         filter = view.findViewById(R.id.viewed_filter)
         filterLayout = view.findViewById(R.id.viewed_filter_layout)
@@ -74,7 +86,7 @@ class MovieListFragment : Fragment() {
 
         filter.apply {
             setOnClickListener {
-                filter.showDropdown2(adapter)
+                filter.showDropdownOnClick(adapter)
             }
 
             doOnTextChanged { text, _, _, _ ->
@@ -91,9 +103,6 @@ class MovieListFragment : Fragment() {
         if (filter.text.isNullOrBlank()) {
             filter.setText(ViewFilter.ALL.value)
         }
-
-        //viewModel.filterMoviesBySearchText(search.text.toString())
-        //viewModel.filterMoviesByTypeFilter(getViewFilter(filter.text.toString()))
     }
 
     private fun getViewFilter(text: String): ViewFilter {
@@ -104,10 +113,3 @@ class MovieListFragment : Fragment() {
 }
 
 
-// WORK AROUND
-// https://github.com/material-components/material-components-android/issues/349
-fun AutoCompleteTextView.showDropdown2(adapter: ArrayAdapter<CharSequence>?) {
-    if (!TextUtils.isEmpty(this.text.toString())) {
-        adapter?.filter?.filter(null)
-    }
-}

@@ -9,8 +9,11 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.firebaseapp.R
+import com.example.firebaseapp.services.FirebaseAuthService
 
 class MainFragment : Fragment() {
+    private val firebaseAuthService = FirebaseAuthService.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,9 +30,19 @@ class MainFragment : Fragment() {
             requireActivity().finish()
         }
 
-        view.findViewById<Button>(R.id.button_test).apply {
+        if (firebaseAuthService.isLogged()) {
+            view.findNavController().navigate(R.id.action_mainFragment_to_movieListFragment)
+        }
+
+        view.findViewById<Button>(R.id.button_main_sign_in).apply {
             setOnClickListener {
-                view.findNavController().navigate(R.id.action_mainFragment_to_movieListFragment)
+                view.findNavController().navigate(R.id.action_mainFragment_to_signInFragment)
+            }
+        }
+
+        view.findViewById<Button>(R.id.button_main_sign_up).apply {
+            setOnClickListener {
+                view.findNavController().navigate(R.id.action_mainFragment_to_signUpFragment)
             }
         }
     }

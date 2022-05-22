@@ -10,7 +10,43 @@
         android:name="com.example.firebaseapp.fragments.MainFragment">
 
         <action
+            android:id="@+id/action_mainFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+
+        <action
             android:id="@+id/action_mainFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+
+    <!--    SIGN IN  -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.firebaseapp.fragments.SignInFragment">
+
+        <action
+            android:id="@+id/action_signInFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_signInFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+
+    <!--    SIGN UP  -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.firebaseapp.fragments.SignUpFragment">
+
+        <action
+            android:id="@+id/action_signUpFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_signUpFragment_to_movieListFragment"
             app:destination="@id/movieListFragment" />
     </fragment>
 

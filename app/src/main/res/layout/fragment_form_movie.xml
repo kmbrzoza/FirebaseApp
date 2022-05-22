@@ -120,6 +120,7 @@
         style="@style/button"
         android:text="@string/remove"
         android:visibility="invisible"
+        app:backgroundTint="@color/secondaryDarkColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

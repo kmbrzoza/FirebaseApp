@@ -9,5 +9,17 @@
     <string name="remove">Remove</string>
     <string name="search">Search</string>
     <string name="filters">Filters</string>
-    <string name="field_is_required">Field is required</string>
+    <string name="field_is_required_error">Field is required</string>
+    <string name="password_length_error">Minimum password length: 6</string>
+    <string name="passwords_are_different_error">Passwords are different</string>
+    <string name="incorrect_email_format">Incorrect email format</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="user_registration">User registration</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="user_login">User login</string>
+    <string name="main_header">Welcome in your movies storage!</string>
+    <string name="hello">Hello!</string>
 </resources>

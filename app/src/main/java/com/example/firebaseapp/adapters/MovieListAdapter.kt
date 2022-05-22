@@ -40,6 +40,10 @@ class MovieListAdapter(private val movies: ArrayList<Movie>?) :
 
         holder.textViewMovieTitle.text = movie.title
 
+        if (position == itemCount - 1) {
+            holder.textViewMovieTitle.background = null
+        }
+
         holder.rowMovie.setOnClickListener {
             holder.navigateToMovieInfo(movie)
         }

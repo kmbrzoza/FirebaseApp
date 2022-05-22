@@ -1,8 +1,8 @@
 package com.example.firebaseapp.services
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.firebaseapp.BuildConfig
 import com.example.firebaseapp.models.FormMovie
 import com.example.firebaseapp.models.Movie
 import com.example.firebaseapp.models.ViewFilter
@@ -20,6 +20,7 @@ class FirebaseService private constructor() {
 
     private var databaseReference: DatabaseReference
     private var firebaseMovies: ArrayList<Movie> = ArrayList()
+    private val firebaseAuthService = FirebaseAuthService.getInstance()
 
     private var _movies: MutableLiveData<ArrayList<Movie>?> = MutableLiveData(null)
     val movies: LiveData<ArrayList<Movie>?>
@@ -29,8 +30,9 @@ class FirebaseService private constructor() {
 
     init {
         val fireBase =
-            FirebaseDatabase.getInstance("https://fir-app-62f32-default-rtdb.europe-west1.firebasedatabase.app")
+            FirebaseDatabase.getInstance(BuildConfig.FirebaseProjectUrl)
         databaseReference = fireBase.getReference("MoviesData")
+            .child(firebaseAuthService.getUserUid())
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {}
 
@@ -64,7 +66,6 @@ class FirebaseService private constructor() {
     }
 
     fun filterMovies(searchValue: String, viewFilter: ViewFilter) {
-        Log.d("tag", "$searchValue ; ${viewFilter}")
         val result = firebaseMovies.filter {
             when (viewFilter) {
                 ViewFilter.VIEWED -> {
@@ -74,7 +75,7 @@ class FirebaseService private constructor() {
                     !it.viewed && it.title.lowercase().contains(searchValue.lowercase())
                 }
                 else -> {
-                    it.title.lowercase().contains(searchValue)
+                    it.title.lowercase().contains(searchValue.lowercase())
                 }
             }
         }
