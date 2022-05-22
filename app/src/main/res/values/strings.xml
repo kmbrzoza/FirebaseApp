@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FirebaseApp</string>
+    <string name="title">Title</string>
+    <string name="director">Director</string>
+    <string name="year">Year</string>
+    <string name="viewed">Viewed</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="remove">Remove</string>
+    <string name="search">Search</string>
+    <string name="filters">Filters</string>
+    <string name="field_is_required">Field is required</string>
 </resources>

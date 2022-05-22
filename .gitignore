@@ -104,3 +104,4 @@ lint/tmp/
 # lint/reports/
 
 appsettings.properties
+app/google-services.json

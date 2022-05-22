@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+
+    <!--    MAIN  -->
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.firebaseapp.fragments.MainFragment">
+
+        <action
+            android:id="@+id/action_mainFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+
+    <!--    MOVIE LIST  -->
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.example.firebaseapp.fragments.MovieListFragment">
+
+        <action
+            android:id="@+id/action_movieListFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_movieListFragment_to_formMovieFragment"
+            app:destination="@id/formMovieFragment" />
+    </fragment>
+
+
+    <!--    FORM MOVIE  -->
+    <fragment
+        android:id="@+id/formMovieFragment"
+        android:name="com.example.firebaseapp.fragments.FormMovieFragment">
+
+        <action
+            android:id="@+id/action_formMovieFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+
+</navigation>
